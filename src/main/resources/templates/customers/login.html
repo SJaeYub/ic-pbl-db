@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="login.css">
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <section class = "login-form">
+        <h1>54A+ CINEMA</h1>        <!--//머릿글-->
+        <form role="form" action="/customers/login" th:object="${String}"
+              method="post">
+            <div class = "int-area">
+<!--                <input type="text" name = "id" id = "id" autocomplete="off" required>-->
+<!--                <label for="id">USER NAME</label>-->
+                <label th:for="u_id">닉네임</label>
+<!--                <input type="text" th:field="*{value}" class="form-control"-->
+<!--                       placeholder="사용자 아이디를 입력하세요">-->
+            </div>
+<!--            <div class = "int-area">-->
+<!--                <input type="number" name = "cus_or_manage" id = "cus_or_manage" autocomplete="off" required>-->
+<!--                <label for="id">cus_or_manage</label>-->
+<!--            </div>-->
+            <div class = "btn-area">
+                <button id = "btn" type = "submit">LOGIN</button>
+            </div>
+        </form>
+        <div class = "caption">
+            <a href="">예매 확인</a>
+        </div>
+    </section>
+
+    <script>
+        let id = $('#id');
+        let pw = $('#pw');
+        let btn = $('#btn');
+
+        $(btn).on('click', function() {
+            if($(id).val() == "") {
+                $(id).next('label').addClass('warning');
+                setTimeout(function() {
+                    $('label').removeClass('warning');
+                }, 1500);
+            }
+            else if($(pw).val() == "") {
+                $(pw).next('label').addClass('warning');
+                setTimeout(function() {
+                    $('label').removeClass('warning');
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>
