@@ -28,4 +28,8 @@ public class MovieRepository {
                 .getResultList();
     }
 
+    public List<Movie> findAllMovie() {
+        return entityManager.createQuery("select m from Movie as m", Movie.class)
+                .getResultList();
+    }
 }

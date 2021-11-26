@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"/>
+<body>
+<div class="container">
+    <!--    <div th:replace="fragments/bodyHeader :: bodyHeader"/>-->
+    <div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>순위</th>
+                <th>영화 이름</th>
+                <th>관람인원</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="movies : ${movies}">
+                <td th:text="${movies.ranking}"></td>
+                <td th:text="${movies.name}"></td>
+                <td th:text="${movies.view}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!--    <div th:replace="fragments/footer :: footer"/>-->
+</div> <!-- /container -->
+</body>
+</html>

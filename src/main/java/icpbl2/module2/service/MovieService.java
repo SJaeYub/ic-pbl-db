@@ -31,4 +31,8 @@ public class MovieService {
             throw new IllegalStateException("이미 등록된 영화 정보입니다.");
         }
     }
+
+    public List<Movie> findAllMovie() {
+        return movieRepository.findAllMovie();
+    }
 }

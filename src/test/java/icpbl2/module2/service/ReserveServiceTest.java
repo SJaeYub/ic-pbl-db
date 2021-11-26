@@ -26,14 +26,6 @@ import static org.junit.Assert.*;
 @Transactional
 public class ReserveServiceTest {
 
-    //    @Autowired
-//    CustomerRepository customerRepository;
-//    @Autowired
-//    ReserveRepository reserveRepository;
-//    @Autowired
-//    PlayingMovieRepository playingMovieRepository;
-//    @Autowired
-//    ManageRepository manageRepository;
     @Autowired
     ReserveService reserveService;
     @Autowired

@@ -2,9 +2,11 @@ package icpbl2.module2.controller;
 
 import icpbl2.module2.domain.Customer;
 import icpbl2.module2.domain.MemberStatus;
+import icpbl2.module2.domain.Movie;
 import icpbl2.module2.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,12 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class CustomerController {
 
+    @Autowired
     private final CustomerService customerService;
 
     @GetMapping("/customers/new")
@@ -44,13 +48,11 @@ public class CustomerController {
         return "redirect:/";
     }
 
-    @GetMapping("/customers/login")
-    public String signIn(Model model) {
-        log.info("signIn");
-        model.addAttribute("id", new String());
-//        model.addAttribute("flag", new Integer);
-        return "redirect:/";
+    @GetMapping("/customers/list")
+    public String list(Model model) {
+        List<Customer> customers = customerService.findCustomer();
+        model.addAttribute("customers", customers);
+        log.info("list");
+        return "/customers/customerList";
     }
-
-//    @PostMapping
 }
