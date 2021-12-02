@@ -42,6 +42,11 @@ public class CustomerService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public Customer findByNickname(String uid) {
+        return customerRepository.findByName(uid);
+    }
+
     /**
      * 모든 회원 조회
      * @return

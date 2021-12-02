@@ -1,6 +1,6 @@
 spring: #띄어쓰기 없음
   datasource: #띄어쓰기 2칸
-    url: jdbc:oracle:thin:@39.117.114.157:1521:XE #4칸
+    url: jdbc:oracle:thin:@180.70.58.9:1521:XE #4칸
     username: projectuser
     password: 1234
     driver-class-name: oracle.jdbc.OracleDriver
@@ -15,4 +15,4 @@ spring: #띄어쓰기 없음
 
 logging.level: #띄어쓰기 없음
   org.hibernate.SQL: debug #띄어쓰기 2칸
-# org.hibernate.type: trace #띄어쓰기 2칸
+  org.hibernate.type: trace #띄어쓰기 2칸

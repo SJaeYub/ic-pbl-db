@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_page</title>
+    <link rel="stylesheet"
+          th:href="@{admin.css}"
+          href="admin.css">
+    <script
+        src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+        crossorigin="anonymous">
+    </script>
+</head>
+<body>
+    <section class = "Select-form">
+        <h1>ADMIN PAGE</h1>
+        <div class = "btn-area">
+            <button id = "btn" type = "영화 관리"
+                    th:onclick="|location.href='@{/admin/admin_MC}'|"
+                    onclick = "location.href = 'admin_MC.html';">영화 관리</button>
+        </div>
+        <div class = "btn-area">
+            <button id = "btn" type = "영화관 관리"
+                    th:onclick="|location.href='@{/admin/admin_TC}'|"
+                    onclick = "location.href = 'admin_TC.html';">영화관 관리</button>
+        </div>
+        <div class = "btn-area">
+            <button id = "btn" type = "예약 관리"
+                    th:onclick="|location.href='@{/admin/admin_check}'|"
+                    onclick = "location.href = 'admin_check.html';">예약 관리</button>
+        </div>
+    </section>
+</body>
+</html> 
