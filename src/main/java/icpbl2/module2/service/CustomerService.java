@@ -44,7 +44,7 @@ public class CustomerService {
 
     @Transactional(readOnly = true)
     public Customer findByNickname(String uid) {
-        return customerRepository.findByName(uid);
+        return customerRepository.findByNickName(uid);
     }
 
     /**

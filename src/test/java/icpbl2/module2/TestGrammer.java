@@ -1,6 +1,9 @@
 package icpbl2.module2;
 
+import icpbl2.module2.domain.Customer;
+import icpbl2.module2.domain.MemberStatus;
 import icpbl2.module2.domain.Movie;
+import icpbl2.module2.service.CustomerService;
 import icpbl2.module2.service.MovieService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,6 +25,15 @@ public class TestGrammer {
 
     @Autowired
     MovieService movieService;
+    @Autowired
+    CustomerService customerService;
+
+//    @Test
+//    public void 매니저_추가() {
+//
+//        customerService.join(new Customer("testManager",
+//                "testMan", LocalDate.of(1999,2,18), MemberStatus.DB_MANAGER));
+//    }
 
     @Test
     public void 영화_매출액_정렬() {

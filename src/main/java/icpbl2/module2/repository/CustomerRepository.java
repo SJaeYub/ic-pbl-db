@@ -33,9 +33,9 @@ public class CustomerRepository {
                 .getResultList();
     }
 
-    public Customer findByName(String name) {   //회원 name을 통한 회원 조회
-        return em.createQuery("select m from Customer as m where m.name =:name", Customer.class)
-                .setParameter("name", name)
+    public Customer findByNickName(String uid) {   //회원 name을 통한 회원 조회
+        return em.createQuery("select m from Customer as m where m.user_id =:uid", Customer.class)
+                .setParameter("uid", uid)
                 .getSingleResult();
     }
 }

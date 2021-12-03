@@ -27,16 +27,18 @@ public class CustomerController {
     @Autowired
     private final CustomerService customerService;
 
+
     @GetMapping
-    public String showForm() {
+    public String showForm(@RequestParam String customerId) {
         log.info("showForm_customer");
-//        log.info("userId={}", userid);
+        log.info("userId={}", customerId);
         return "customer/customer";
     }
 
     @GetMapping("/customer_info")
     public String show_info() {
         log.info("showInfo_customer");
+//        log.info("userId={}", customerId);
         return "customer/customer_info";
     }
 

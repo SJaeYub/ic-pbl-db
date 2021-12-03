@@ -1,6 +1,7 @@
 package icpbl2.module2.controller;
 
 import icpbl2.module2.domain.Customer;
+import icpbl2.module2.domain.MemberStatus;
 import icpbl2.module2.service.CustomerService;
 import icpbl2.module2.service.ManageService;
 import icpbl2.module2.service.MovieService;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import javax.annotation.PostConstruct;
+import java.time.LocalDate;
 
 @Controller
 @Slf4j
@@ -35,10 +39,16 @@ public class HomeController {
 
     @GetMapping
     public String test(Model model) {
-        model.addAttribute("name", "Rooney");
         log.info("test");
         return "basic/login";
     }
+
+//    @PostConstruct
+//    public void addMAn() {
+//        customerService.join(new Customer("testManager",
+//                "testMan", LocalDate.of(1999, 2, 18), MemberStatus.DB_MANAGER));
+//
+//    }
 
     @PostMapping
     public String testParam(@RequestParam String userid,
