@@ -27,7 +27,7 @@ public class CustomerServiceTest {
 
     @Test
     public void 회원가입() throws Exception {
-        Customer customer = new Customer("test0", "testName", LocalDate.of(1983, 02, 16), MemberStatus.CUSTOMER);
+        Customer customer = new Customer("test0", "testName", "test0", LocalDate.of(1983, 02, 16), MemberStatus.CUSTOMER);
 
         Long savedId = customerService.join(customer);
 
@@ -37,8 +37,8 @@ public class CustomerServiceTest {
     @Test(expected = IllegalStateException.class)
     public void 중복_회원_예외() throws Exception {
 
-        Customer customer1 = new Customer("test", "testName1", LocalDate.of(1923, 02, 11), MemberStatus.CUSTOMER);
-        Customer customer2 = new Customer("test", "testName2", LocalDate.of(1983, 02, 16), MemberStatus.CUSTOMER);
+        Customer customer1 = new Customer("test", "testName1", "testName1", LocalDate.of(1923, 02, 11), MemberStatus.CUSTOMER);
+        Customer customer2 = new Customer("test", "testName2", "testName2", LocalDate.of(1983, 02, 16), MemberStatus.CUSTOMER);
 
         customerService.join(customer1);
         customerService.join(customer2);

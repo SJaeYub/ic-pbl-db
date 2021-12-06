@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>customer_info_page</title>
     <link rel="stylesheet"
-          th:href="@{/css/customer_info.css}"
+          th:href="@{/css/bootstrap.min.css}"
           href="customer_info.css">
     <script
         src="https://code.jquery.com/jquery-3.6.0.js"
@@ -15,16 +15,19 @@
     </script>
 </head>
 <body>
-    <section class = "info-form">
+    <section class = "info-form" th:object="${info}">
         <h1>유저 정보</h1>
         <div class = "info">
             ID:
+            <input th:type="test" th:value="*{user_id}" readonly>
         </div>
         <div class = "info">
             NAME:
+            <input th:type="test" th:value="*{name}" readonly>
         </div>
         <div class = "info">
             BIRTH:
+            <input th:type="test" th:value="*{birth}" readonly>
         </div>
     </section>
 </body>

@@ -20,6 +20,7 @@ public class CustomerService {
     /**
      * 회원 가입
      * 테스트 완료
+     *
      * @param customer
      * @return
      */
@@ -32,6 +33,7 @@ public class CustomerService {
 
     /**
      * ID 중복 조회
+     *
      * @param customer
      */
     private void validateDuplicateCustomer(Customer customer) {
@@ -49,6 +51,7 @@ public class CustomerService {
 
     /**
      * 모든 회원 조회
+     *
      * @return
      */
     @Transactional(readOnly = true)
@@ -59,11 +62,22 @@ public class CustomerService {
     /**
      * 키값으로 해당 회원 조회
      * 테스트 완료
+     *
      * @param c_id
      * @return
      */
     @Transactional(readOnly = true)
     public Customer findOne(Long c_id) {
         return customerRepository.findOne(c_id);
+    }
+
+    @Transactional
+    public Customer longin(String loginId, String password) {
+        Customer byNickName = customerRepository.findByNickName(loginId);
+        if (byNickName.getPassword().equals(password)) {
+            return byNickName;
+        } else {
+            return null;
+        }
     }
 }

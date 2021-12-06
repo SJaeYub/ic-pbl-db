@@ -12,6 +12,7 @@ public class CustomerForm {
 
     private String user_id;
     private String name;
+    private String password;
     private int year;
     private int month;
     private int day;

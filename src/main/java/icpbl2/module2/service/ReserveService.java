@@ -12,7 +12,7 @@ import static icpbl2.module2.domain.ReservedSeat.reserveSeat;
 import java.util.*;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class ReserveService {
 
@@ -62,6 +62,17 @@ public class ReserveService {
     @Transactional
     public List<ReservedSeat> searchRS(Long r_id) {
         return reserveRepository.findSeatAllByRm_id(r_id);
+    }
+
+    /**
+     * 해당 회원 전체 예약 내역 조회
+     * @param customer_id
+     * @return
+     */
+    @Transactional
+    public List<ReservedMovie> list_RM(Long customer_id) {
+        Customer customer = customerRepository.findOne(customer_id);
+        return reserveRepository.findAll(customer);
     }
 
     /**

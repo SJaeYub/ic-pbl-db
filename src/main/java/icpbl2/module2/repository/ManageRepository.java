@@ -17,6 +17,11 @@ public class ManageRepository {
         entityManager.persist(cinema);
     }
 
+    public List<Cinema> findAllCinema() {
+        return entityManager.createQuery("select c from Cinema as c", Cinema.class)
+                .getResultList();
+    }
+
     public void cinemaDelete(Cinema cinema) {
         entityManager.remove(cinema);
     }

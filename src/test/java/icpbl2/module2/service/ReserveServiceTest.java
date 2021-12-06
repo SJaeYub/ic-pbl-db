@@ -41,7 +41,7 @@ public class ReserveServiceTest {
 
     @Test
     public void test_reserve() {
-        Customer customer = new Customer("test_id", "test_name", LocalDate.of(1999, 01, 13), MemberStatus.CUSTOMER);
+        Customer customer = new Customer("test_id", "test_name", "test_id", LocalDate.of(1999, 01, 13), MemberStatus.CUSTOMER);
         customerService.join(customer);
 
         Cinema cinema_s = new Cinema("수원점");

@@ -27,7 +27,7 @@ public class ReserveRepository {
      * 해당 회원의 전체 예약 내역 확인
      */
     public List<ReservedMovie> findAll(Customer customer) {
-        return em.createQuery("select rm from ReservedMovie as rm where rm.customer=:customer_id", ReservedMovie.class)
+        return em.createQuery("select rm from ReservedMovie as rm where rm.customer.id=:customer_id", ReservedMovie.class)
                 .setParameter("customer_id", customer.getId())
                 .getResultList();
     }

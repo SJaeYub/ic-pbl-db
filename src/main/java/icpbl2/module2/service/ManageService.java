@@ -9,7 +9,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
-import static icpbl2.module2.domain.Customer.registerCustomer;
 
 @Service
 @Transactional
@@ -53,6 +52,10 @@ public class ManageService {
         return manageRepository.findCinemaByName(c_name);
     }
 
+    public Cinema findCinemaById(Long c_id) {
+        return manageRepository.findCinemaOne(c_id);
+    }
+
     /**
      * 해당 cinema 삭제
      * 테스트 성공
@@ -86,6 +89,10 @@ public class ManageService {
      */
     public List<Seat> searchAllSeatInTheater(Cinema cinema, Theater theater) {
         return manageRepository.findAllSeat(cinema, theater);
+    }
+
+    public List<Cinema> searchAllCinema() {
+        return manageRepository.findAllCinema();
     }
 
     /**
@@ -122,20 +129,20 @@ public class ManageService {
         return manageRepository.findOneEmployeeByName(cinema, employee.getEmployee_name());
     }
 
-    /**
-     * 회원가입
-     * 테스트 성공
-     * @param user_id
-     * @param name
-     * @param birth
-     * @param memberStatus
-     * @return
-     */
-    public Long signUp(String user_id, String name, LocalDate birth, MemberStatus memberStatus) {
-        Customer customer = registerCustomer(user_id, name, birth, memberStatus);
-        manageRepository.signUpToDb(customer);
-        return customer.getId();
-    }
+//    /**
+//     * 회원가입
+//     * 테스트 성공
+//     * @param user_id
+//     * @param name
+//     * @param birth
+//     * @param memberStatus
+//     * @return
+//     */
+//    public Long signUp(String user_id, String name, LocalDate birth, MemberStatus memberStatus) {
+//        Customer customer = registerCustomer(user_id, name, birth, memberStatus);
+//        manageRepository.signUpToDb(customer);
+//        return customer.getId();
+//    }
 
     /**
      * 회원 아이디로 회원 찾기

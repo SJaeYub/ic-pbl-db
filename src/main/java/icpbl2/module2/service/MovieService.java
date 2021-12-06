@@ -25,11 +25,20 @@ public class MovieService {
         return movie.getMovie_id();
     }
 
+    @Transactional
+    public void remove(Movie movie) {
+        movieRepository.remove(movie);
+    }
+
     private void validateDuplicateMovie(Movie movie) {
         List<Movie> findMovies = movieRepository.findByMovieId(movie.getMovie_id());
         if (!findMovies.isEmpty()) {
             throw new IllegalStateException("이미 등록된 영화 정보입니다.");
         }
+    }
+
+    public Movie findOne(String name) {
+        return movieRepository.searchOne(name);
     }
 
     public List<Movie> findAllMovie() {
