@@ -26,6 +26,13 @@ public class ManageRepository {
         entityManager.remove(cinema);
     }
 
+    public Theater findOneTheaterInCinema(String cinema, int num) {
+        return entityManager.createQuery("select t from Theater as t where t.cinema.cinema_name=:cName and t.theater_num=:tNum", Theater.class)
+                .setParameter("cName", cinema)
+                .setParameter("tNum", num)
+                .getSingleResult();
+    }
+
     public Cinema findCinemaOne(Long id) {
         return entityManager.find(Cinema.class, id);
     }
@@ -81,7 +88,7 @@ public class ManageRepository {
                 .getResultList();
     }
 
-    public Long findSeatByColAndRow(Cinema cinema, Theater theater, Character col, int row) {
+    public Seat findSeatByColAndRow(Cinema cinema, Theater theater, Character col, int row) {
         return entityManager.createQuery("select s from Seat as s where s.seat_col=:col and" +
                         " s.seat_row=:row and" +
                         " s.cinema.cinema_id=:c_id and" +
@@ -90,7 +97,7 @@ public class ManageRepository {
                 .setParameter("row", row)
                 .setParameter("c_id", cinema.getCinema_id())
                 .setParameter("t_id", theater.getTheater_id())
-                .getSingleResult().getSeat_id();
+                .getSingleResult();
     }
 
     public Seat findSeatById(Long id) {

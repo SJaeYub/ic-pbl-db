@@ -50,13 +50,27 @@ public class CustomerController {
         log.info("customer/customer_ticketing");
         List<PlayingMovie> playingMovieList = playingMovieService.findPM();
         model.addAttribute("list", playingMovieList);
+        model.addAttribute("form", new MovieForm());
         return "customer/customer_ticketing";
     }
 
     @PostMapping("/customer_ticketing")
-    public String ticketing(PlayingMovie playingMovie) {
-        log.info("pm_info={}", playingMovie);
-        return "customer/customer";
+    public String ticketing(@Valid @SessionAttribute(name = SessionConst.LOGIN_MEMBER) Customer customer, MovieForm movieForm, Model model) {
+        log.info("pm_info={}", movieForm);
+        log.info("movieForm.getName()={}", movieForm.getName());
+        log.info("movieForm.getCinema()={}", movieForm.getCinema());
+        log.info("movieForm.getTheater()={}", movieForm.getTheater());
+//        log.info("movieForm.getStart_time()={}", movieForm.getStart_time());
+
+        PlayingMovie playingMovie = playingMovieService.findOnePM(movieForm.getName(), movieForm.getCinema(), movieForm.getTheater());
+        Seat seatByCNT = manageService.findSeatByCNT(movieForm.getCinema(), movieForm.getTheater(), movieForm.getCol(), movieForm.getRow());
+
+        Long reserveId = reserveService.reserve(customer.getId(), playingMovie.getPlayingMovie_id(), 20000, seatByCNT.getSeat_id());
+        log.info("complete reserve={}", reserveId);
+
+        List<ReservedMovie> reservedMovies = reserveService.list_RM(customer.getId());
+        model.addAttribute("list", reservedMovies);
+        return "customer/customer_check";
     }
 
 

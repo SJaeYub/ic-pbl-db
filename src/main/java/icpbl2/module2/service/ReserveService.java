@@ -55,6 +55,11 @@ public class ReserveService {
         return reserveRepository.findOne(id);
     }
 
+    @Transactional
+    public List<ReservedMovie> findAllRM() {
+        return reserveRepository.findAllRM();
+    }
+
     /**
      * 예약 id로 예약 좌석 조회
      * 테스트 완료

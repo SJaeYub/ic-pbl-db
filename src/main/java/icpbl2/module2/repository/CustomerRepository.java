@@ -33,7 +33,7 @@ public class CustomerRepository {
                 .getResultList();
     }
 
-    public Customer findByNickName(String uid) {   //회원 name을 통한 회원 조회
+    public Customer findByNickNameInRepo(String uid) {   //회원 name을 통한 회원 조회
         return em.createQuery("select m from Customer as m where m.user_id =:uid", Customer.class)
                 .setParameter("uid", uid)
                 .getSingleResult();

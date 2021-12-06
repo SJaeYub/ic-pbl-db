@@ -32,6 +32,11 @@ public class ReserveRepository {
                 .getResultList();
     }
 
+    public List<ReservedMovie> findAllRM() {
+        return em.createQuery("select r from ReservedMovie as r", ReservedMovie.class)
+                .getResultList();
+    }
+
     public List<ReservedSeat> findSeatAllByRm_id(Long id) {
         return em.createQuery("select rs from ReservedSeat as rs " +
                         "where rs.reservedMovie.reservedMovie_id=:id", ReservedSeat.class)

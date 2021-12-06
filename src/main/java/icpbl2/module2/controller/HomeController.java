@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -120,29 +121,26 @@ public class HomeController {
         response.addCookie(cookie);
     }
 
-    @PostConstruct
-    @Transactional
-    public void addPlayingMovie() {
-
-//        Customer customer = new Customer("testM1, test_manager", )
-//        Movie soul = new Movie("귀멸의 칼날", 20000);
-//        movieService.join(soul);
-////
-//        Cinema ansan = new Cinema("안산");
-//        manageService.cinemaJoin(ansan);
-////
-//        Cinema suwon = manageService.findCinemaById(28L);
-//        Theater theater_two = new Theater(suwon, 2);
-//        manageService.theaterJoin(theater_two);
+//    @PostConstruct
+//    @Transactional
+//    public void addPlayingMovie() {
 //
-////        PlayingMovie playingMovie = new PlayingMovie(dune, suwon, theater_one, LocalDateTime.now());
-//        PlayingMovie playingMovie = new PlayingMovie(soul, ansan, theater_two, LocalDateTime.now());
-//        playingMovieService.join(playingMovie);
-
-//        Seat a = new Seat(suwon, theater_two, 'A', 10);
-//        manageService.seatSave(a);
-//        reserveService.reserve(1L, 30L, 20000, a.getSeat_id());
-    }
+//        Cinema kangnam = manageService.findCinemaById(46L);
+//
+//        Character[] temp_col = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+//
+//        List<Theater> theaterList =
+//                manageService.searchAllTheaterByCinemaName(kangnam.getCinema_name());
+//
+//        for (Theater theater : theaterList) {
+//            for (int i = 0; i < 10; i++) {
+//                for (int j = 1; j <= 20; j++) {
+//                    Seat seat = new Seat(kangnam, theater, temp_col[i], j);
+//                    manageService.seatSave(seat);
+//                }
+//            }
+//        }
+//    }
 
 
 //    @PostConstruct

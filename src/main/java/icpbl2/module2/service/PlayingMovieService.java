@@ -22,6 +22,11 @@ public class PlayingMovieService {
         return playingMovie.getPlayingMovie_id();
     }
 
+    @Transactional
+    public PlayingMovie findOnePM(String mName, String cName, int tNum) {
+        return  playingMovieRepository.findOneForReserve(mName, cName, tNum);
+    }
+
     private void validateDuplicatePM(PlayingMovie playingMovie) {
         List<PlayingMovie> findPM = playingMovieRepository.findById(playingMovie.getPlayingMovie_id());
         if (!findPM.isEmpty()) {

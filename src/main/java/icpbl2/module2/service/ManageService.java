@@ -79,6 +79,10 @@ public class ManageService {
         return manageRepository.findAllTheater(cinema);
     }
 
+    public Theater findOneTheater(String cinema, int num) {
+        return manageRepository.findOneTheaterInCinema(cinema, num);
+    }
+
     /**
      * 해당 영화관의 해당 상영관에 좌석 리턴
      * 테스트 성공
@@ -106,9 +110,16 @@ public class ManageService {
         return seat.getSeat_id();
     }
 
+    public Seat findSeatByCNT(String cinema, int theater, Character col, int row) {
+        Cinema cinema1 = manageRepository.findCinemaByName(cinema);
+        Theater theater1 = manageRepository.findOneTheaterInCinema(cinema, theater);
+        return manageRepository.findSeatByColAndRow(cinema1, theater1, col, row);
+    }
+
     /**
      * 직원 등록하기
      * 테스트 성공
+     *
      * @param employee
      * @return
      */
@@ -121,6 +132,7 @@ public class ManageService {
     /**
      * 해당 시네마 해당 이름의 직원 찾기
      * 테스트 성공
+     *
      * @param cinema
      * @param employee
      * @return
@@ -147,15 +159,18 @@ public class ManageService {
     /**
      * 회원 아이디로 회원 찾기
      * 테스트 성공
+     *
      * @param u_id
      * @return
      */
     public Customer searchCustomer(String u_id) {
         return manageRepository.findOneCustomerByUserId(u_id);
     }
+
     /**
      * 중복값 검사
      * 테스트 성공
+     *
      * @param object
      */
     private void validateDuplicate(Object object) {
@@ -166,11 +181,11 @@ public class ManageService {
                 throw new IllegalStateException("이미 등록된 영화관입니다.");
             }
         }
-        if(object instanceof Employee) {
+        if (object instanceof Employee) {
             Employee temp = (Employee) object;
             List<Employee> employees = manageRepository.findAllEmployeeInCinema(temp.getCinema());
             for (Employee employee : employees) {
-                if(employee.getEmployee_name() == temp.getEmployee_name()) {
+                if (employee.getEmployee_name() == temp.getEmployee_name()) {
                     throw new IllegalStateException("이미 등록된 직원입니다.");
                 }
             }
@@ -179,7 +194,7 @@ public class ManageService {
             Theater temp = (Theater) object;
             List<Theater> allTheater = manageRepository.findAllTheater(temp.getCinema());
             for (Theater theater : allTheater) {
-                if(theater.getTheater_num() == temp.getTheater_num()) {
+                if (theater.getTheater_num() == temp.getTheater_num()) {
                     throw new IllegalStateException("해당 영화관에 이미 등록된 상영관입니다.");
                 }
             }

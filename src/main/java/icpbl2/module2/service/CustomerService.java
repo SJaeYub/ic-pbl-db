@@ -46,7 +46,7 @@ public class CustomerService {
 
     @Transactional(readOnly = true)
     public Customer findByNickname(String uid) {
-        return customerRepository.findByNickName(uid);
+        return customerRepository.findByNickNameInRepo(uid);
     }
 
     /**
@@ -73,7 +73,7 @@ public class CustomerService {
 
     @Transactional
     public Customer longin(String loginId, String password) {
-        Customer byNickName = customerRepository.findByNickName(loginId);
+        Customer byNickName = customerRepository.findByNickNameInRepo(loginId);
         if (byNickName.getPassword().equals(password)) {
             return byNickName;
         } else {

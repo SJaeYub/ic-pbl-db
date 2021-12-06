@@ -26,6 +26,11 @@
         <div class = "btn-area">
             <button id = "btn" type = "예약 관리" th:onclick="|location.href='@{/admin/admin_check}'|">예약 관리</button>
         </div>
+        <div class="btn-area">
+            <form th:action="@{/logout}" method="post">
+                <button id="btn" type="로그 아웃" onclick="location.href='items.html';">로그 아웃</button>
+            </form>
+        </div>
     </section>
 </body>
 </html> 

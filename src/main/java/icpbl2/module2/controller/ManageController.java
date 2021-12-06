@@ -1,7 +1,9 @@
 package icpbl2.module2.controller;
 
 import icpbl2.module2.domain.Cinema;
+import icpbl2.module2.domain.Customer;
 import icpbl2.module2.domain.Movie;
+import icpbl2.module2.domain.ReservedMovie;
 import icpbl2.module2.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -70,8 +72,25 @@ public class ManageController {
     }
 
     @GetMapping("/admin_check")
-    public String showCheck() {
+    public String showCheck(Model model) {
         log.info("showMc_admin");
+
+        List<ReservedMovie> reservedMovieList = reserveService.findAllRM();
+        model.addAttribute("list", reservedMovieList);
+        model.addAttribute("customer", new CustomerForm());
+        return "admin/admin_check";
+    }
+
+    @PostMapping("/admin_check")
+    public String searchCustomer(CustomerForm customerForm, Model model) {
+        log.info("searchCustomer in check controller");
+        log.info("customerForm.getUser_id()={}", customerForm.getUser_id());
+
+        Customer customer = customerService.findByNickname(customerForm.getUser_id());
+        List<ReservedMovie> reservedMovieList = reserveService.list_RM(customer.getId());
+        model.addAttribute("list", reservedMovieList);
+
+        log.info("reservedMovieList={}", reservedMovieList);
         return "admin/admin_check";
     }
 

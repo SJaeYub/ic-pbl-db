@@ -5,85 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>admin_check</title>
-<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
+    <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
     <link rel="stylesheet"
           th:href="@{/css/bootstrap.min.css}"
           href="admin_check.css">
 
 </head>
 <body>
-    <section class = "control-form">
-        <h1>예약 관리</h1>
-        <div class = "search-box">
-            <input type="text" placeholder="회원 ID를 입력해 주세요"/> 
-            <button>검색</button>
+<section class="control-form">
+    <h1>예약 관리</h1>
+    <form action="#" th:action th:object="${customer}" method="post">
+        <div class="search-box">
+<!--            <input type="text" id="itemName" th:field="*{itemName}" class="formcontrol" placeholder="이름을 입력하세요">-->
+            <input type="text" th:field="*{user_id}" placeholder="회원 ID를 입력해 주세요"/>
+            <button type="submit">검색</button>
         </div>
-        <form action = "#">
-            <table class = "table">
-                <th>회원 ID</th>
-                <th>회원이름</th>
-                <th>영화 이름</th>
-                <th>영화 ID</th>
-                <th>영화관명</th>
-                <th>영화관</th>
-                <th>좌석</th>
-                <th>수정</th>
-                <tr>
-                    <td>aw221</td>
-                    <td>김남주</td>
-                    <td>집으로</td>
-                    <td>M32</td>
-                    <td>강남점</td>
-                    <td>2관</td>
-                    <td>3열 7</td>
-                    <td>
-                        <button onclick = "location.href = 'admin_check_revise.html';" >수정</button>
-                        <button>삭제</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>aw222</td>
-                    <td>김갑주</td>
-                    <td>집으로</td>
-                    <td>M32</td>
-                    <td>강남점</td>
-                    <td>2관</td>
-                    <td>3열 8</td>
-                    <td>
-                        <button onclick = "location.href = 'admin_check_revise.html';" >수정</button>
-                        <button>삭제</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>aw223</td>
-                    <td>김소주</td>
-                    <td>집으로</td>
-                    <td>M32</td>
-                    <td>강남점</td>
-                    <td>2관</td>
-                    <td>3열 9</td>
-                    <td>
-                        <button onclick = "location.href = 'admin_check_revise.html';" >수정</button>
-                        <button>삭제</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>aw224</td>
-                    <td>김맥주</td>
-                    <td>집으로</td>
-                    <td>M32</td>
-                    <td>강남점</td>
-                    <td>2관</td>
-                    <td>3열 10</td>
-                    <td>
-                        <button onclick = "location.href = 'admin_check_revise.html';" >수정</button>
-                        <button>삭제</button>
-                    </td>
-                </tr>
-            </table>
-        </form>
-        <button class = "button" style = "margin-top: 10px;" onclick = "location.href = 'admin_check_revise.html';">수정</button>
-    </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    </form>
+    <form action="#">
+        <table class="table">
+            <th>회원 ID</th>
+            <th>회원이름</th>
+            <th>영화 이름</th>
+            <th>영화 ID</th>
+            <th>지점명</th>
+            <th>상영관</th>
+            <th>시작시간</th>
+            <th>수정</th>
+            <tr th:each="ticket : ${list}">
+                <td th:text="${ticket.customer.user_id}"></td>
+                <td th:text="${ticket.customer.name}"></td>
+                <td th:text="${ticket.playingMovie.playingMovie_name}"></td>
+                <td th:text="${ticket.playingMovie.movie.movie_id}"></td>
+                <td th:text="${ticket.playingMovie.cinema.cinema_name}"></td>
+                <td th:text="${ticket.playingMovie.theater.theater_num}"></td>
+                <td th:text="${ticket.playingMovie.playLocalDateTime}"></td>
+                <td>
+                    <button onclick="location.href = 'admin_check_revise.html';">수정</button>
+                    <button>삭제</button>
+                </td>
+            </tr>
+
+        </table>
+    </form>
+    <button class="button" style="margin-top: 10px;" onclick="location.href = 'admin_check_revise.html';">수정</button>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
 </html> 
