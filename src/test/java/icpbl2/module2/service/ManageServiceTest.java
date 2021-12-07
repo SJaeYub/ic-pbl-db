@@ -172,7 +172,7 @@ public class ManageServiceTest {
         Employee testEm = Employee.registerEmployee(cinem_s, "test_em", Week.MON, 50000000, Em_rank.STAFF);
         manageService.regiEmployee(testEm);
 
-        Assertions.assertEquals(testEm, manageService.searchOneEmployee(cinem_s, testEm));
+        Assertions.assertEquals(testEm, manageService.searchOneEmployee(cinem_s, testEm.getEmployee_name()));
     }
 
     private Cinema getCinema() {

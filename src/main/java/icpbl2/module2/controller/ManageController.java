@@ -1,13 +1,13 @@
 package icpbl2.module2.controller;
 
-import icpbl2.module2.domain.Cinema;
-import icpbl2.module2.domain.Customer;
-import icpbl2.module2.domain.Movie;
-import icpbl2.module2.domain.ReservedMovie;
+import icpbl2.module2.domain.*;
+import icpbl2.module2.from.CustomerForm;
+import icpbl2.module2.from.DeleteReserveForm;
+import icpbl2.module2.from.EmployeeForm;
+import icpbl2.module2.from.MovieForm;
 import icpbl2.module2.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -78,6 +78,8 @@ public class ManageController {
         List<ReservedMovie> reservedMovieList = reserveService.findAllRM();
         model.addAttribute("list", reservedMovieList);
         model.addAttribute("customer", new CustomerForm());
+        model.addAttribute("form", new DeleteReserveForm());
+
         return "admin/admin_check";
     }
 
@@ -89,8 +91,29 @@ public class ManageController {
         Customer customer = customerService.findByNickname(customerForm.getUser_id());
         List<ReservedMovie> reservedMovieList = reserveService.list_RM(customer.getId());
         model.addAttribute("list", reservedMovieList);
+        model.addAttribute("customer", new CustomerForm());
+        model.addAttribute("form", new DeleteReserveForm());
 
         log.info("reservedMovieList={}", reservedMovieList);
+        return "admin/admin_check";
+    }
+
+    @PostMapping("/admin_check_del_reserve")
+    public String delReserve(DeleteReserveForm deleteReserveForm, Model model) {
+        log.info("deleteReserveForm.getId()={}", deleteReserveForm.getId());
+
+        List<Seat> seatList = reserveService.cancelReserve(deleteReserveForm.getId());
+        for (Seat seat : seatList) {
+            log.info("seat_num={}", seat.getSeat_id());
+            log.info("after seat_status={}", seat.getSeat_status());
+        }
+
+        log.info("complete cancel reserve={}", deleteReserveForm.getId());
+        List<ReservedMovie> reservedMovieList = reserveService.findAllRM();
+        model.addAttribute("list", reservedMovieList);
+        model.addAttribute("form", new DeleteReserveForm());
+        model.addAttribute("customer", new CustomerForm());
+
         return "admin/admin_check";
     }
 
@@ -115,6 +138,63 @@ public class ManageController {
         model.addAttribute("list", moviest);
 
         return "admin/admin_MC";
+    }
+
+    @GetMapping("/admin_employee")
+    public String showEmp(Model model) {
+        log.info("showEmp");
+
+        List<Employee> allEmployee = manageService.findAllEmployee();
+
+        model.addAttribute("list", allEmployee);
+        model.addAttribute("emForm", new EmployeeForm());
+        model.addAttribute("form", new EmployeeForm());
+        return "admin/admin_employee";
+    }
+
+    @PostMapping("/admin_employee")
+    public String postEmp(EmployeeForm employeeForm, Model model) {
+        log.info("postEmp");
+        Cinema cinema = manageService.findCinemaByName(employeeForm.getCinema());
+        Employee employees = manageService.searchOneEmployee(cinema, employeeForm.getName());
+
+        model.addAttribute("list", employees);
+        model.addAttribute("emForm", new EmployeeForm());
+        model.addAttribute("form", new EmployeeForm());
+
+        return "admin/admin_employee";
+    }
+
+    @PostMapping("/admin_change_status")
+    public String changeStatus(EmployeeForm employeeForm, Model model) {
+        log.info("changeStatus");
+
+        Employee employee = manageService.findOneEmp(employeeForm.getE_id());
+
+        model.addAttribute("info", employee);
+        model.addAttribute("form", new EmployeeForm());
+        return "admin/admin_change_status";
+    }
+
+    @PostMapping("/admin/admin_re_emp")
+    public String changeCom(EmployeeForm employeeForm, Model model) {
+        log.info("changeCom");
+        manageService.changeStatus(employeeForm.getE_id(), employeeForm);
+
+        List<Employee> allEmployee = manageService.findAllEmployee();
+
+        model.addAttribute("list", allEmployee);
+        model.addAttribute("emForm", new EmployeeForm());
+        model.addAttribute("form", new EmployeeForm());
+        return "admin/admin_employee";
+    }
+
+    @GetMapping("/admin_theater_join")
+    public String manageFacilities(Model model) {
+
+        List<Facility> allFacilities = manageService.findAllFacilities();
+        model.addAttribute("list", allFacilities);
+        return "admin/admin_theater_join";
     }
 
     private List<MovieForm> sortByRank(List<Movie> allMovie) {

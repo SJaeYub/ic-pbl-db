@@ -82,5 +82,16 @@ public class ReserveService {
 
     /**
      * 예약 취소
+     *  예약 영화 id
      */
+    @Transactional
+    public List<Seat> cancelReserve(Long id) {
+        reserveRepository.deleteReserve(id);
+        List<Seat> seats = reserveRepository.deleteReserveSeat(id);// 예약 좌석 삭제
+
+        for (Seat seat : seats) {
+            reserveRepository.changeStatusSeat(seat, Seat_status.POS);      //좌석 상태 가능 좌석으로 변경
+        }
+        return seats;
+    }
 }

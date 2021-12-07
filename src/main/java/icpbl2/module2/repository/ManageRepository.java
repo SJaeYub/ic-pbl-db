@@ -1,5 +1,6 @@
 package icpbl2.module2.repository;
 
+import icpbl2.module2.from.EmployeeForm;
 import icpbl2.module2.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -100,6 +101,23 @@ public class ManageRepository {
                 .getSingleResult();
     }
 
+    public Employee changeEmp(Long id, EmployeeForm employeeForm) {
+        Employee employee = entityManager.createQuery("select e from Employee as e where e.employee_id=:e_id", Employee.class)
+                .setParameter("e_id", id)
+                .getSingleResult();
+
+        employee.setEmployee_name(employeeForm.getName());
+        employee.setSalaryPerYear(employeeForm.getSalaryPerYear());
+        employee.setRank(employeeForm.getRank());
+
+        return employee;
+    }
+
+    public List<Employee> searchAllEmployee() {
+        return entityManager.createQuery("select e from Employee as e", Employee.class)
+                .getResultList();
+    }
+
     public Seat findSeatById(Long id) {
         return entityManager.createQuery("select s from Seat as s where s.seat_id=:id", Seat.class)
                 .setParameter("id", id)
@@ -111,7 +129,19 @@ public class ManageRepository {
     }
 
     public Employee findEmployeeById(Long id) {
-        return entityManager.find(Employee.class, id);
+        return entityManager.createQuery("select e from Employee as e where e.employee_id=:e_id", Employee.class)
+                .setParameter("e_id", id)
+                .getSingleResult();
+    }
+
+    public void saveFacil(Facility facility) {
+        entityManager.persist(facility);
+        return;
+    }
+
+    public List<Facility> searchAllFacilities() {
+        return entityManager.createQuery("select f from Facility as f", Facility.class)
+                .getResultList();
     }
 
     public Employee findOneEmployeeByName(Cinema cinema, String name) {
@@ -137,6 +167,7 @@ public class ManageRepository {
                 .setParameter("u_id", u_id)
                 .getSingleResult();
     }
+
 
 
 }

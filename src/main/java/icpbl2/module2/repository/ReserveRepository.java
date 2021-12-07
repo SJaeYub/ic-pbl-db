@@ -52,5 +52,28 @@ public class ReserveRepository {
         return em.find(ReservedSeat.class, id);
     }
 
+    public void deleteReserve(Long id) {
+        ReservedMovie result = em.createQuery("select rm from ReservedMovie as rm where rm.reservedMovie_id=:rid", ReservedMovie.class)
+                .setParameter("rid", id)
+                .getSingleResult();
+        em.remove(result);
+
+        return;
+    }
+
+    public List<Seat> deleteReserveSeat(Long rmid) {
+        List<ReservedSeat> resultList = em.createQuery("select rs from ReservedSeat as rs where rs.reservedMovie.reservedMovie_id=:rmid", ReservedSeat.class)
+                .setParameter("rmid", rmid)
+                .getResultList();
+
+        List<Seat> idList = new ArrayList<>();
+
+        for (ReservedSeat reservedSeat : resultList) {
+            idList.add(reservedSeat.getSeat());
+            em.remove(reservedSeat);
+        }
+
+        return idList;
+    }
 
 }

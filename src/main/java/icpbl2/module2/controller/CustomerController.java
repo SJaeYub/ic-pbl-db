@@ -1,21 +1,19 @@
 package icpbl2.module2.controller;
 
 import icpbl2.module2.domain.*;
+import icpbl2.module2.from.DeleteReserveForm;
+import icpbl2.module2.from.MovieForm;
 import icpbl2.module2.service.CustomerService;
 import icpbl2.module2.service.ManageService;
 import icpbl2.module2.service.PlayingMovieService;
 import icpbl2.module2.service.ReserveService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -42,6 +40,30 @@ public class CustomerController {
         log.info("customer/customer_check");
         List<ReservedMovie> reservedMovies = reserveService.list_RM(customer.getId());
         model.addAttribute("list", reservedMovies);
+
+        DeleteReserveForm deleteReserveForm = new DeleteReserveForm();
+        model.addAttribute("form", deleteReserveForm);
+        return "customer/customer_check";
+    }
+
+    @PostMapping("/customer_check")
+    public String cancelReserve(@SessionAttribute(name = SessionConst.LOGIN_MEMBER) Customer customer, DeleteReserveForm deleteReserveForm, Model model) {
+        log.info("cancel Reserve");
+        log.info("reservedMovie={}", deleteReserveForm.getId());
+
+        List<Seat> seatList = reserveService.cancelReserve(deleteReserveForm.getId());
+        for (Seat seat : seatList) {
+            log.info("seat_num={}", seat.getSeat_id());
+            log.info("after seat_status={}", seat.getSeat_status());
+        }
+
+        log.info("complete cancel reserve={}", deleteReserveForm.getId());
+        List<ReservedMovie> reservedMovies = reserveService.list_RM(customer.getId());
+        model.addAttribute("list", reservedMovies);
+
+        DeleteReserveForm deleteReserveForm2 = new DeleteReserveForm();
+        model.addAttribute("form", deleteReserveForm2);
+
         return "customer/customer_check";
     }
 
@@ -55,7 +77,7 @@ public class CustomerController {
     }
 
     @PostMapping("/customer_ticketing")
-    public String ticketing(@Valid @SessionAttribute(name = SessionConst.LOGIN_MEMBER) Customer customer, MovieForm movieForm, Model model) {
+    public String ticketing(@Valid @SessionAttribute(name = SessionConst.LOGIN_MEMBER) Customer customer, MovieForm movieForm, DeleteReserveForm deleteReserveForm, Model model) {
         log.info("pm_info={}", movieForm);
         log.info("movieForm.getName()={}", movieForm.getName());
         log.info("movieForm.getCinema()={}", movieForm.getCinema());
@@ -70,6 +92,8 @@ public class CustomerController {
 
         List<ReservedMovie> reservedMovies = reserveService.list_RM(customer.getId());
         model.addAttribute("list", reservedMovies);
+        model.addAttribute("form", deleteReserveForm);
+        log.info("complete addAttribute={}", reservedMovies);
         return "customer/customer_check";
     }
 

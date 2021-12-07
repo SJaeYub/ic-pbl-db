@@ -1,4 +1,4 @@
-package icpbl2.module2.controller;
+package icpbl2.module2.from;
 
 import lombok.Getter;
 import lombok.Setter;

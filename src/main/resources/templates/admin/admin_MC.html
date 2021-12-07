@@ -20,30 +20,31 @@
         <thead>
         <tr class="head">
             <th scope="col">관람순위</th>
-            <th scope="col" style="width: 120px;">영화 제목</th>
+            <th scope="col">영화 제목</th>
             <th scope="col">관람횟수</th>
-            <th scope="col">수정</th>
         </tr>
         </thead>
         <tbody>
-        <form th:action method="post" th:object="${del_movie}">
-            <tr th:each="movie : ${list}">
-                <td th:text="|${movie.ranking}|"></td>
-                <td th:text="|${movie.name}|"></td>
-                <td th:text="|${movie.view}|"></td>
-
-                <td>
-                    <!--                    <input type="text" th:field="*{quantity}" class="formcontrol" placeholder="수량을 입력하세요">-->
-                    <input type="button" th:type="submit" th:value="삭제" th:field="|${movie.name}|">
-                    <!--                    <button type="submit", th:field="|${movie.name}|">삭제</button>-->
-                </td>
-            </tr>
-        </form>
+        <tr th:each="movie : ${list}">
+            <td th:text="|${movie.ranking}|"></td>
+            <td th:text="|${movie.name}|"></td>
+            <td th:text="|${movie.view}|"></td>
+        </tr>
 
         </tbody>
     </table>
-    <button class="button" th:onclick="|location.href='@{/admin/admin_addMovie}'|">영화 추가</button>
-
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-primary btn-lg" th:onclick="|location.href='@{/admin/admin_addMovie}'|">영화 추가</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button class="w-100 btn btn-secondary btn-lg" type="button"
+                    th:onclick="|location.href='@{/login/customer}'|" th:text="로그인화면으로">예약취소
+            </button>
+        </div>
+    </div>
 </section>
 </body>
 </html> 

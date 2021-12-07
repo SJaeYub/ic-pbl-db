@@ -1,6 +1,5 @@
 package icpbl2.module2.repository;
 
-import icpbl2.module2.domain.Customer;
 import icpbl2.module2.domain.Movie;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,6 +33,8 @@ public class MovieRepository {
         return entityManager.createQuery("select m from Movie as m", Movie.class)
                 .getResultList();
     }
+
+
 
     public Movie searchOne(String name) {
         log.info("movie_name in searchOne ={}", name);

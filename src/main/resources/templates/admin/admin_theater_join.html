@@ -12,19 +12,20 @@
 
 </head>
 <body>
-    <section class = "control-form">
-        <h1>영화관 수정</h1>
-        <form action="#" class = "form">
-            <div style = "margin-top: 10px; ">
-                <input type="text" placeholder="영화관 이름">
-            </div>
-            <div style = "margin-top: 10px; ">
-                <input type="text" placeholder="상영관 설정">
-            </div>
-            <div style = "margin-top: 10px; ">
-                <input type="text" placeholder="좌석 설정">
-            </div>
-        </form>
-        <button class = "button" style = "margin-top: 10px;" >영화 추가</button>
+<div>
+    <form th:action method="post">
+        <table class="table">
+            <th>시설물 id</th>
+            <th>지점명</th>
+            <th>시설물 이름</th>
+            <th>담당자</th>
+            <tr th:each="facility : ${list}">
+                <td th:text="|${facility.facility_id}|"></td>
+                <td th:text="|${facility.cinema.cinema_name}|"></td>
+                <td th:text="|${facility.facility_name}|"></td>
+                <td th:text="|${facility.employee}|"></td>
+            </tr>
+        </table>
+    </form>
 </body>
 </html> 

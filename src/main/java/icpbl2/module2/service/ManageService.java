@@ -1,12 +1,12 @@
 package icpbl2.module2.service;
 
+import icpbl2.module2.from.EmployeeForm;
 import icpbl2.module2.domain.*;
 import icpbl2.module2.repository.ManageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 
 
@@ -129,16 +129,25 @@ public class ManageService {
         return employee.getEmployee_id();
     }
 
-    /**
-     * 해당 시네마 해당 이름의 직원 찾기
-     * 테스트 성공
-     *
-     * @param cinema
-     * @param employee
-     * @return
-     */
-    public Employee searchOneEmployee(Cinema cinema, Employee employee) {
-        return manageRepository.findOneEmployeeByName(cinema, employee.getEmployee_name());
+    public Employee findOneEmp(Long id) {
+        return manageRepository.findEmployeeById(id);
+    }
+
+    public Employee changeStatus(Long id, EmployeeForm employeeForm) {
+        return manageRepository.changeEmp(id, employeeForm);
+    }
+
+    public void joinFacil(Facility facility) {
+        manageRepository.saveFacil(facility);
+        return;
+    }
+
+    public List<Facility> findAllFacilities() {
+        return manageRepository.searchAllFacilities();
+    }
+
+    public Employee searchOneEmployee(Cinema cinema, String name) {
+        return manageRepository.findOneEmployeeByName(cinema, name);
     }
 
 //    /**
@@ -165,6 +174,10 @@ public class ManageService {
      */
     public Customer searchCustomer(String u_id) {
         return manageRepository.findOneCustomerByUserId(u_id);
+    }
+
+    public List<Employee> findAllEmployee() {
+        return manageRepository.searchAllEmployee();
     }
 
     /**
