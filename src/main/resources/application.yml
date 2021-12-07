@@ -1,6 +1,6 @@
 spring: #띄어쓰기 없음
   datasource: #띄어쓰기 2칸
-    url: jdbc:oracle:thin:@180.70.58.9:1521:XE #4칸
+    url:  #4칸
     username: projectuser
     password: 1234
     driver-class-name: oracle.jdbc.OracleDriver
