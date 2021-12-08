@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>admin_check</title>
+    <link rel="stylesheet"
+          th:href="@{/css/bootstrap.min.css}"
+          href="customer_check.css">
+
+</head>
+<body>
+<!--    <section class = "info-form">-->
+<!--        <h1>예약 확인</h1>-->
+<!--        <div class = "info">-->
+<!--            영화관:-->
+<!--        </div>-->
+<!--        <div class = "info">-->
+<!--            영화시간:-->
+<!--        </div>-->
+<!--        <div class = "info">-->
+<!--            영화제목:-->
+<!--        </div>-->
+<!--        <div class = "info">-->
+<!--            좌석:-->
+<!--        </div>-->
+
+<!--    </section>-->
+
+<div>
+    <form th:action method="post">
+        <table class="table">
+            <th>예매 번호</th>
+            <th>영화 제목</th>
+            <th>상영 시각</th>
+            <th>상영 시간</th>
+            <th>영화관</th>
+            <th>상영관</th>
+            <tr th:each="info : ${list}">
+                <td th:text="|${info.reservedMovie_id}|"></td>
+                <td th:text="|${info.playingMovie.playingMovie_name}|"></td>
+                <td th:text="|${info.playingMovie.playLocalDateTime}|"></td>
+                <td th:text="|${info.playingMovie.playingTime} 분|"></td>
+                <td th:text="|${info.playingMovie.cinema.cinema_name} 지점|"></td>
+                <td th:text="|${info.playingMovie.theater.theater_num} 관|"></td>
+            </tr>
+        </table>
+    </form>
+
+    <form action="item.html" th:action="@{/customer/customer_check}" th:object="${form}" method="post">
+
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+        </div>
+
+        <div>
+            <label for="id" th:text="예매번호">예매 번호</label>
+            <input type="text" id="id" th:field="*{id}"
+                   th:errorclass="field-error" class="form-control" placeholder="취소할 예매 번호를 입력하세요">
+            <div class="field-error" th:errors="*{id}">
+                예매 번호 오류
+            </div>
+        </div>
+        <hr class="my-4">
+
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-primary btn-lg" type="submit" th:text="예약취소">예약취소</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <button class="w-100 btn btn-secondary btn-lg" type="button" th:onclick="|location.href='@{/login/customer}'|" th:text="로그인화면으로">예약취소</button>
+            </div>
+        </div>
+
+    </form>
+</div>
+</body>
+</html> 

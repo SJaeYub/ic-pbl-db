@@ -1,5 +1,6 @@
 package icpbl2.module2.repository;
 
+import icpbl2.module2.from.EmployeeForm;
 import icpbl2.module2.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -17,8 +18,20 @@ public class ManageRepository {
         entityManager.persist(cinema);
     }
 
+    public List<Cinema> findAllCinema() {
+        return entityManager.createQuery("select c from Cinema as c", Cinema.class)
+                .getResultList();
+    }
+
     public void cinemaDelete(Cinema cinema) {
         entityManager.remove(cinema);
+    }
+
+    public Theater findOneTheaterInCinema(String cinema, int num) {
+        return entityManager.createQuery("select t from Theater as t where t.cinema.cinema_name=:cName and t.theater_num=:tNum", Theater.class)
+                .setParameter("cName", cinema)
+                .setParameter("tNum", num)
+                .getSingleResult();
     }
 
     public Cinema findCinemaOne(Long id) {
@@ -76,7 +89,7 @@ public class ManageRepository {
                 .getResultList();
     }
 
-    public Long findSeatByColAndRow(Cinema cinema, Theater theater, Character col, int row) {
+    public Seat findSeatByColAndRow(Cinema cinema, Theater theater, Character col, int row) {
         return entityManager.createQuery("select s from Seat as s where s.seat_col=:col and" +
                         " s.seat_row=:row and" +
                         " s.cinema.cinema_id=:c_id and" +
@@ -85,7 +98,24 @@ public class ManageRepository {
                 .setParameter("row", row)
                 .setParameter("c_id", cinema.getCinema_id())
                 .setParameter("t_id", theater.getTheater_id())
-                .getSingleResult().getSeat_id();
+                .getSingleResult();
+    }
+
+    public Employee changeEmp(Long id, EmployeeForm employeeForm) {
+        Employee employee = entityManager.createQuery("select e from Employee as e where e.employee_id=:e_id", Employee.class)
+                .setParameter("e_id", id)
+                .getSingleResult();
+
+        employee.setEmployee_name(employeeForm.getName());
+        employee.setSalaryPerYear(employeeForm.getSalaryPerYear());
+        employee.setRank(employeeForm.getRank());
+
+        return employee;
+    }
+
+    public List<Employee> searchAllEmployee() {
+        return entityManager.createQuery("select e from Employee as e", Employee.class)
+                .getResultList();
     }
 
     public Seat findSeatById(Long id) {
@@ -99,7 +129,19 @@ public class ManageRepository {
     }
 
     public Employee findEmployeeById(Long id) {
-        return entityManager.find(Employee.class, id);
+        return entityManager.createQuery("select e from Employee as e where e.employee_id=:e_id", Employee.class)
+                .setParameter("e_id", id)
+                .getSingleResult();
+    }
+
+    public void saveFacil(Facility facility) {
+        entityManager.persist(facility);
+        return;
+    }
+
+    public List<Facility> searchAllFacilities() {
+        return entityManager.createQuery("select f from Facility as f", Facility.class)
+                .getResultList();
     }
 
     public Employee findOneEmployeeByName(Cinema cinema, String name) {
@@ -125,6 +167,7 @@ public class ManageRepository {
                 .setParameter("u_id", u_id)
                 .getSingleResult();
     }
+
 
 
 }

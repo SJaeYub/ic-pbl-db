@@ -154,17 +154,17 @@ public class ManageServiceTest {
         }
     }
 
-    @Test
-    public void 회원가입_및_조회() {
-        String u_id = "test_id";
-        String name = "testName";
-        LocalDate birth = LocalDate.of(1999, 02, 24);
-        MemberStatus memberStatus = MemberStatus.CUSTOMER;
-
-        Long testM = manageService.signUp(u_id, name, birth, memberStatus);
-
-        assertEquals(testM, manageService.searchCustomer("test_id").getId());
-    }
+//    @Test
+//    public void 회원가입_및_조회() {
+//        String u_id = "test_id";
+//        String name = "testName";
+//        LocalDate birth = LocalDate.of(1999, 02, 24);
+//        MemberStatus memberStatus = MemberStatus.CUSTOMER;
+//
+//        Long testM = manageService.signUp(u_id, name, birth, memberStatus);
+//
+//        assertEquals(testM, manageService.searchCustomer("test_id").getId());
+//    }
 
     @Test
     public void 직원_등록() {
@@ -172,7 +172,7 @@ public class ManageServiceTest {
         Employee testEm = Employee.registerEmployee(cinem_s, "test_em", Week.MON, 50000000, Em_rank.STAFF);
         manageService.regiEmployee(testEm);
 
-        Assertions.assertEquals(testEm, manageService.searchOneEmployee(cinem_s, testEm));
+        Assertions.assertEquals(testEm, manageService.searchOneEmployee(cinem_s, testEm.getEmployee_name()));
     }
 
     private Cinema getCinema() {

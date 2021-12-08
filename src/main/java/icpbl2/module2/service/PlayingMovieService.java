@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class PlayingMovieService {
 
@@ -20,6 +20,11 @@ public class PlayingMovieService {
         validateDuplicatePM(playingMovie);
         playingMovieRepository.save(playingMovie);
         return playingMovie.getPlayingMovie_id();
+    }
+
+    @Transactional
+    public PlayingMovie findOnePM(String mName, String cName, int tNum) {
+        return  playingMovieRepository.findOneForReserve(mName, cName, tNum);
     }
 
     private void validateDuplicatePM(PlayingMovie playingMovie) {
