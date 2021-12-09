@@ -150,21 +150,6 @@ public class ManageService {
         return manageRepository.findOneEmployeeByName(cinema, name);
     }
 
-//    /**
-//     * 회원가입
-//     * 테스트 성공
-//     * @param user_id
-//     * @param name
-//     * @param birth
-//     * @param memberStatus
-//     * @return
-//     */
-//    public Long signUp(String user_id, String name, LocalDate birth, MemberStatus memberStatus) {
-//        Customer customer = registerCustomer(user_id, name, birth, memberStatus);
-//        manageRepository.signUpToDb(customer);
-//        return customer.getId();
-//    }
-
     /**
      * 회원 아이디로 회원 찾기
      * 테스트 성공
