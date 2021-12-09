@@ -28,14 +28,14 @@
         <div>
             <label for="loginId" style="margin-bottom:10px; color:white;">로그인 ID</label>
             <input type="text" id="loginId" th:field="*{loginId}" class="form-control"
-                   th:errorclass="field-error" style="margin-bottom:10px;">
-            <div class="field-error" th:errors="*{loginId}" />
+                   th:errorclass="field-error" style="margin-bottom:10px; color:black;">
+            <div class="field-error" th:errors="*{loginId}" style="color:red;"/>
         </div>
         <div>
             <label for="password" style="margin-bottom:10px; color:white;">비밀번호</label>
             <input type="password" id="password" th:field="*{password}" class="form-control"
-                   th:errorclass="field-error">
-            <div class="field-error" th:errors="*{password}" />
+                   th:errorclass="field-error" style="margin-bottom:10px; color:black;">
+            <div class="field-error" th:errors="*{password}" style="color:red;"/>
         </div>
         <hr class="my-4">
         <div class="row">
